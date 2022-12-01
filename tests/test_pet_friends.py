@@ -65,8 +65,7 @@ def test_get_api_key_with_wrong_email_and_correct_password(email=invalid_email, 
 
 def test_add_pet_with_a_lot_of_words_in_variable_animal_type(name='Барсик',  age='4', pet_photo='images/19.jpg'):
     animal_type = 'игиенический наполнитель Барсик «Рыжий» – экологически чистый высококачественный впитывающий наполнитель для кошачьего туалета, ' \
-                  'изготовлен из природного минерала – опоковидной глины, прошедшей специальную технологическую обработку, ' \
-                  'повышающую абсорбирующие свойства минералов в несколько раз, с добавлением ароматизаторов, выработанных из натуральных природных компонентов.'
+                  'изготовлен из природного минерала – опоковидной глины, прошедшей специальную технологическую обработку.'
 
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     status, result = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
@@ -123,13 +122,13 @@ def test_add_photo_at_pet(name='Барсик', animal_type='просто кот'
 
 
 def test_add_pet_with_numbers_in_variable_animal_type(name='Барсик',  age='4', animal_type='36415', pet_photo='images/19.jpg'):
-        pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
+    pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
-        _, api_key = pf.get_api_key(valid_email, valid_password)
-        status, result = pf.add_new_pet(api_key, name, animal_type, age, pet_photo)
+    _, api_key = pf.get_api_key(valid_email, valid_password)
+    status, result = pf.add_new_pet(api_key, name, animal_type, age, pet_photo)
 
-        assert status == 200
-        assert animal_type not in result['animal_type'], 'Питомец добавлен на сайт с цифрами вместо букв в поле порода'
+    assert status == 200
+    assert animal_type not in result['animal_type'], 'Питомец добавлен на сайт с цифрами вместо букв в поле порода'
 
 
 
